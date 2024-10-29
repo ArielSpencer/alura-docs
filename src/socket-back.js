@@ -1,4 +1,4 @@
-import { adicionarDocumento, atualizarDocumento, encontrarDocumento, obterDocumentos } from "./documentosDb.js";
+import { adicionarDocumento, atualizarDocumento, encontrarDocumento, excluirDocumento, obterDocumentos } from "./documentosDb.js";
 import io from "./servidor.js";
 
 io.on('connection', (socket) => {
@@ -46,4 +46,13 @@ io.on('connection', (socket) => {
     console.log(`Cliente "${socket.id}" desconectado!
     Motivo: ${motivo}`);
   });
+
+  socket.on('excluir_documento', async (nome) => {
+    const resultado = await excluirDocumento(nome);
+
+    if (resultado.deletedCount) {
+      io.emit('excluir_documento_interface', nome);
+    }
+  });
+
 });
