@@ -23,11 +23,16 @@ function atualizarTexto(texto) {
 }
 
 botaoExcluir.addEventListener('click', () => {
-
   if (confirm('Tem certeza que deseja excluir este documento?')) {
     emitirExcluirDocumento(nomeDocumento);
-    window.location.href = '/';
   }
 });
 
-export { atualizarTexto };
+function alertarERedirecionar(nome) {
+  if (nome === nomeDocumento) {
+    alert(`O documento "${nome}" foi deletado!`);
+    window.location.href = '/';
+  }
+}
+
+export { atualizarTexto, alertarERedirecionar };
